@@ -18,12 +18,13 @@ $data_user = sqlsrv_query($conn , $query);
 
 if(isset($_POST['submit']))
 {
-  $wew = $_POST['id'];
+  $id = $_POST['id'];
   $firstname = $_POST['first'];
   $lastname = $_POST['last'];
   $insert = 'INSERT INTO persons (id, firstname, lastname)
-  VALUES ($wew, $firstname, $lastname);';
-  $stmt = sqlsrv_query($conn , $insert);
+  VALUES (?,?,>);';
+  $params = array($id,$firstname,$lastname);
+  $stmt = sqlsrv_query($conn , $insert, $params);
   if ($stmt) {  
     echo "Row successfully inserted.\n";  
 } else {  
