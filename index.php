@@ -22,7 +22,7 @@ if(isset($_POST['submit']))
   $firstname = $_POST['first'];
   $lastname = $_POST['last'];
   $insert = 'INSERT INTO persons (id, firstname, lastname)
-  VALUES (?,?,>);';
+  VALUES (?,?,?);';
   $params = array($id,$firstname,$lastname);
   $stmt = sqlsrv_query($conn , $insert, $params);
   if ($stmt) {  
