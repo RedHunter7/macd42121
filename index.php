@@ -21,7 +21,7 @@ if(isset($_POST['submit']))
   $id = $_POST['id'];
   $firstname = $_POST['first'];
   $lastname = $_POST['last'];
-  $insert = 'INSERT INTO persons (id, firstname, lastname)
+  $insert = 'INSERT INTO [dbo].[persons] (id, firstname, lastname)
   VALUES ($id, $firstname, $lastname);';
   $submit = sqlsrv_query($conn , $insert);
 }
