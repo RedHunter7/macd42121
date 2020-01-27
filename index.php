@@ -15,6 +15,16 @@ $serverName = "tcp:macd42121.database.windows.net,1433";
 $conn = sqlsrv_connect($serverName, $connectionInfo); 
 $query = "SELECT * FROM [dbo].[persons]";
 $data_user = sqlsrv_query($conn , $query);
+
+if(isset($_POST['submit']))
+{
+  $id = $_POST['id'];
+  $firstname = $_POST['first'];
+  $lastname = $_POST['last'];
+  $insert = 'INSERT INTO persons (id, firstname, lastname)
+  VALUES ($id, $firstname, $lastname);';
+  $submit = sqlsrv_query($conn , $insert);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,6 +38,9 @@ $data_user = sqlsrv_query($conn , $query);
 <body>
     <h1>Form</h1>
     <form action="index.php" method="post">
+       <label for="">ID</label>
+       <input name="id" type="number">
+       <br><br>
        <label for="">firstname</label>
        <input name="first" type="text">
        <br><br>
@@ -35,7 +48,6 @@ $data_user = sqlsrv_query($conn , $query);
        <input name="last" type="text">
        <br><br>
        <button type="submit" name="submit">Submit</button>
-       <button>Load Data</button>
     </form>
 <br><br>
 <table style="width:100%">
