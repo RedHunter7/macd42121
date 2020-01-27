@@ -23,7 +23,14 @@ if(isset($_POST['submit']))
   $lastname = $_POST['last'];
   $insert = 'INSERT INTO persons (id, firstname, lastname)
   VALUES ($id, $firstname, $lastname);';
-  sqlsrv_query($conn , $insert);
+  $stmt = sqlsrv_query($conn , $insert);
+  if ($stmt) {  
+    echo "Row successfully inserted.\n";  
+} else {  
+    echo "Row insertion failed.\n";  
+    die(print_r(sqlsrv_errors(), true));  
+}  
+
 }
 ?>
 <!DOCTYPE html>
