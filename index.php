@@ -16,22 +16,15 @@ $conn = sqlsrv_connect($serverName, $connectionInfo);
 $query = "SELECT * FROM [dbo].[persons]";
 $data_user = sqlsrv_query($conn , $query);
 
-if (isset($_POST['submit'])) {
-  try {
-      $id = $_POST['id'];
-      $firstname = $_POST['first'];
-      $lastname = $_POST['last'];
-      // Insert data
-      $insert = "INSERT INTO persons (id, firstname, lastname) 
-                  VALUES (?,?,?,?)";
-      $stmt = $conn->prepare($insert);
-      $stmt->bindValue(1, $id);
-      $stmt->bindValue(2, $firstname);
-      $stmt->bindValue(3, $lastname);
-      $stmt->execute();
-  } catch(Exception $e) {
-      echo "Failed: " . $e;
-  }
+if(isset($_POST['submit']))
+{
+  $id = $_POST['id'];
+  $firstname = $_POST['first'];
+  $lastname = $_POST['last'];
+  $insert = 'INSERT INTO persons (id, firstname, lastname)
+  VALUES ($id, $firstname, $lastname);';
+  sqlsrv_query($conn , $insert);
+}
 ?>
 <!DOCTYPE html>
 <html>
