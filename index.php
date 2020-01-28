@@ -56,8 +56,12 @@ if(isset($_POST['submit']))
        <input name="last" type="text">
        <br><br>
        <button type="submit" name="submit">Submit</button>
+       <button type="submit" name="load">Load Data</button>
     </form>
 <br><br>
+
+<?php if(isset($_POST['load'])) 
+{  ?>
 <table style="width:100%">
   <tr>
     <th>Firstname</th>
@@ -73,6 +77,8 @@ if(isset($_POST['submit']))
   </tr>
     <?php } ?>
 </table>
+
+    <?php } ?>
 
 </body>
 </html>
