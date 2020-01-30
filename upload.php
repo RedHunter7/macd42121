@@ -17,8 +17,9 @@ if(isset($_POST['upload']))
     $blobClient = BlobRestProxy::createBlobService($connectionString);
     $fileToUpload = $_FILES["img"]["name"];
     $file_tmp = $_FILES['img']['tmp_name'];
-    $target_file = basename($fileToUpload);
-    move_uploaded_file($file_tmp, $fileToUpload);
+    $dir = "img/$fileToUpload";
+    move_uploaded_file($file_tmp, $dir);
+    $target_file ="img/".basename($dir);
  
     # Membuat BlobService yang merepresentasikan Blob service untuk storage account
     $createContainerOptions = new CreateContainerOptions();
