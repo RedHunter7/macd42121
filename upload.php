@@ -29,7 +29,6 @@ if(isset($_POST['upload']))
  
     $containerName = "blockblobs".generateRandomString();
  
-    try    {
         // Membuat container.
         $blobClient->createContainer($containerName, $createContainerOptions);
  
@@ -42,9 +41,9 @@ if(isset($_POST['upload']))
 
     $listBlobsOptions = new ListBlobsOptions();
     $listBlobsOptions->setPrefix("");
- 
+    $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+    
     do{
-       $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
        foreach ($result->getBlobs() as $blob)
        {
           $imgUrl = $blob->getUrl();
@@ -52,23 +51,6 @@ if(isset($_POST['upload']))
  
        $listBlobsOptions->setContinuationToken($result->getContinuationToken());
       } while($result->getContinuationToken());
-    } 
-    catch(ServiceException $e){
-        // Handle exception based on error codes and messages.
-        // Error codes and messages are here:
-        // http://msdn.microsoft.com/library/azure/dd179439.aspx
-        $code = $e->getCode();
-        $error_message = $e->getMessage();
-        echo $code.": ".$error_message."<br />";
-    }
-    catch(InvalidArgumentTypeException $e){
-        // Handle exception based on error codes and messages.
-        // Error codes and messages are here:
-        // http://msdn.microsoft.com/library/azure/dd179439.aspx
-        $code = $e->getCode();
-        $error_message = $e->getMessage();
-        echo $code.": ".$error_message."<br />";
-    }
 
 }
 ?>
