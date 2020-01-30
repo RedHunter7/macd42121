@@ -16,10 +16,6 @@ if(isset($_POST['upload']))
     // Membuat blob client.
     $blobClient = BlobRestProxy::createBlobService($connectionString);
     $fileToUpload = $_FILES["img"]["name"];
-    $file_tmp = $_FILES['img']['tmp_name'];
-    $dir = "img/$fileToUpload";
-    move_uploaded_file($file_tmp, $dir);
-    $target_file ="img/".basename($dir);
  
     # Membuat BlobService yang merepresentasikan Blob service untuk storage account
     $createContainerOptions = new CreateContainerOptions();
@@ -39,7 +35,7 @@ if(isset($_POST['upload']))
  
     // Sampai kode di atas kita telah membuat instancce Azure storage client, menginstansiasi objek blob service, membuat container baru, dan mengatur perijinan ke container agar blob bisa diakses oleh semua.
     
-    $content = fopen($target_file, "r");
+    $content = fopen($_FILES['img']['tmp_name'], "r");
     //Mengunggah blob
     $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 
