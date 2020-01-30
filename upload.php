@@ -8,13 +8,14 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
+# Mengatur instance dari Azure::Storage::Client
+$connectionString ="DefaultEndpointsProtocol=https;AccountName=macd42121;AccountKey=oIQUp6TVtKpLy/iIYu+l/4/eTItFjV9MnnBscnImUmZYZrWRL+eztzZzQyXq6w4dD2LtB4wcCu8fgNSzsT3qqg==;EndpointSuffix=core.windows.net";
+ 
+// Membuat blob client.
+$blobClient = BlobRestProxy::createBlobService($connectionString);
+
 if(isset($_POST['upload']))
 {
-    # Mengatur instance dari Azure::Storage::Client
-    $connectionString = "DefaultEndpointsProtocol=https;AccountName=".getenv('account_name').";AccountKey=".getenv('account_key');
- 
-    // Membuat blob client.
-    $blobClient = BlobRestProxy::createBlobService($connectionString);
     $fileToUpload = $_FILES["img"]["name"];
  
     # Membuat BlobService yang merepresentasikan Blob service untuk storage account
@@ -40,6 +41,7 @@ if(isset($_POST['upload']))
     $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 
     $listBlobsOptions = new ListBlobsOptions();
+    $listBlobsOptions->setPrefix("");
  
     do{
        $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
