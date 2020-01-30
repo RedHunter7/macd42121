@@ -27,11 +27,7 @@ if(isset($_POST['upload']))
     $createContainerOptions->addMetaData("key1", "value1");
     $createContainerOptions->addMetaData("key2", "value2");
  
-    $containerName = "blockblobs".generateRandomString();
- 
-        // Membuat container.
-        $blobClient->createContainer($containerName, $createContainerOptions);
- 
+    $containerName = "blockblobs";
  
     // Sampai kode di atas kita telah membuat instancce Azure storage client, menginstansiasi objek blob service, membuat container baru, dan mengatur perijinan ke container agar blob bisa diakses oleh semua.
     
@@ -42,7 +38,7 @@ if(isset($_POST['upload']))
     $listBlobsOptions = new ListBlobsOptions();
     $listBlobsOptions->setPrefix("");
     $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-    
+
     do{
        foreach ($result->getBlobs() as $blob)
        {
